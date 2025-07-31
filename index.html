@@ -24,8 +24,9 @@
 
         html,
         body {
-            height: 100%;
+            min-height: 100vh;
             overflow-x: hidden;
+            overflow-y: auto; /* Enable vertical scrolling */
         }
 
         body {
@@ -55,6 +56,7 @@
             position: relative;
             overflow: hidden;
             animation: fadeIn 1s ease-out;
+            margin: 20px auto; /* Add margin for scrolling space */
         }
 
         .container::before {
@@ -162,6 +164,15 @@
             margin-right: auto;
         }
 
+        .open-date {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            background: rgba(51, 187, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
         .video-container {
             position: relative;
             width: 100%;
@@ -179,7 +190,7 @@
 
         iframe {
             width: 100%;
-            height: 315px;
+            height: clamp(180px, 50vw, 315px); /* Responsive video height */
             border: none;
             display: block;
         }
@@ -245,6 +256,7 @@
             justify-content: center;
             gap: 15px;
             margin-top: 25px;
+            margin-bottom: 20px; /* Add margin for scrolling space */
         }
 
         .social-links a {
@@ -266,21 +278,6 @@
             transform: translateY(-3px);
         }
 
-        .countdown {
-            margin: 20px 0;
-            font-size: 1.2rem;
-            color: var(--primary-color);
-        }
-
-        .countdown span {
-            display: inline-block;
-            min-width: 40px;
-            padding: 5px 10px;
-            background: rgba(51, 187, 255, 0.1);
-            border-radius: 5px;
-            margin: 0 5px;
-        }
-
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -289,10 +286,6 @@
             
             h1 {
                 font-size: 2rem;
-            }
-            
-            iframe {
-                height: 200px;
             }
             
             .cta-button {
@@ -307,10 +300,6 @@
             
             h1 {
                 font-size: 1.8rem;
-            }
-            
-            iframe {
-                height: 180px;
             }
             
             .spinner-container {
@@ -334,9 +323,8 @@
             <div class="spinner"></div>
         </div>
 
-        <div class="countdown" id="countdown">
-            Returning in: <span id="days">00</span>d <span id="hours">00</span>h 
-            <span id="minutes">00</span>m <span id="seconds">00</span>s
+        <div class="open-date">
+            Website will open on 3 August 2025
         </div>
 
         <div class="message">
@@ -360,8 +348,8 @@
         </a>
 
         <div class="lang">
-            वेबसाइट पर अभी कार्य चल रहा है, कृपया कुछ दिनों बाद पुनः आएं।<br>
-            ବେବସାଇଟ ବନାଉଥିବା ଅବସ୍ଥାରେ ଅଛି, ଦୟାକରି କିଛି ଦିନ ପରେ ଆସନ୍ତୁ।
+            वेबसाइट पर अभी कार्य चल रहा है, कृपया 3 अगस्त 2025 को पुनः आएं।<br>
+            ବେବସାଇଟ ବନାଉଥିବା ଅବସ୍ଥାରେ ଅଛି, ଦୟାକରି ୩ ଅଗଷ୍ଟ ୨୦୨୫ରେ ଆସନ୍ତୁ।
         </div>
 
         <div class="social-links">
@@ -373,34 +361,6 @@
     </div>
 
     <script>
-        // Countdown Timer (set to 7 days from now)
-        const countdownDate = new Date();
-        countdownDate.setDate(countdownDate.getDate() + 7);
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").textContent = days.toString().padStart(2, '0');
-            document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
-            document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
-            document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
-
-            if (distance < 0) {
-                clearInterval(countdownTimer);
-                document.getElementById("countdown").innerHTML = "We're back! Refreshing...";
-                setTimeout(() => { window.location.reload(); }, 2000);
-            }
-        }
-
-        updateCountdown();
-        const countdownTimer = setInterval(updateCountdown, 1000);
-
         // Add subtle background animation
         document.addEventListener('mousemove', (e) => {
             const container = document.querySelector('.container');
